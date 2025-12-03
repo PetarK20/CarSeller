@@ -3,30 +3,30 @@
 ## Tree of the project
 
 hw/
-├── app/                        # Основна логика (Private)
-│   ├── controllers/            # Обработка на заявки
+├── app/                        
+│   ├── controllers/            
 │   │   ├── AdminController.php
 │   │   └── CarController.php
 │   │
-│   ├── models/                 # Работа с база данни
+│   ├── models/                
 │   │   └── CarModel.php
 │   │
-│   └── views/                  # HTML Шаблони
-│       ├── admin/              # Админ панел
+│   └── views/                 
+│       ├── admin/              
 │       │   ├── create.php
 │       │   ├── edit.php
 │       │   ├── index.php
 │       │   └── login.php
 │       │
-│       ├── car_detail.php      # Детайлен изглед
-│       └── car_list.php        # Списък с коли
+│       ├── car_detail.php     
+│       └── car_list.php        
 │
-└── public/                     # Публичен достъп (Public)
+└── public/                    
     ├── css/
     │   └── style.css
     │
-    ├── images/                 # Качени снимки
+    ├── images/                
     │
-    ├── .htaccess               # Настройки за URL
-    └── index.php               # Router (Входна точка)
+    ├── .htaccess               
+    └── index.php               
 
