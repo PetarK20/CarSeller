@@ -49,7 +49,6 @@ class CarModel
         }
     }
 
-    // ТУК Е ОСНОВНАТА ПРОМЯНА - добавихме try-catch
     public function createCar($data)
     {
         $sql = "INSERT INTO cars (make, model, year, mileage, price, engine_type, transmission_type, fuel_consumption_city, fuel_consumption_highway, color, extras, comments, image_url, is_available) 
@@ -60,9 +59,8 @@ class CarModel
             $stmt->execute($data);
             return true;
         } catch (\PDOException $e) {
-            // Това ще покаже грешката на екрана, за да разбереш какво става!
             echo "<div style='background:red; color:white; padding:20px;'>GRESHKA SQL: " . $e->getMessage() . "</div>";
-            exit; // Спираме изпълнението, за да видиш грешката
+            exit; 
         }
     }
 
@@ -100,4 +98,5 @@ class CarModel
         $stmt = $this->db->prepare('DELETE FROM cars WHERE id = :id');
         return $stmt->execute(['id' => $id]);
     }
+
 }
