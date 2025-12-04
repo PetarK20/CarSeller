@@ -16,7 +16,7 @@ class CarController
         // асоциативен масив с ключове 'cars' и 'diagnostic'
         $cars_result = $carModel->getAllCars();
 
-        // 🛑 Извличаме само масива с автомобили, за да го обходи car_list.php
+        // Извличаме само масива с автомобили, за да го обходи car_list.php
         $cars = $cars_result['cars'] ?? [];
 
         // 2. Зареждане на изгледа
@@ -37,4 +37,5 @@ class CarController
         }
     }
 }
+
 ?>
