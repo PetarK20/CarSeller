@@ -154,7 +154,7 @@ class AdminController
             'make' => htmlspecialchars(trim($_POST['make'] ?? '')),
             'model' => htmlspecialchars(trim($_POST['model'] ?? '')),
             'year' => (int)($_POST['year'] ?? 0),
-            'mileage' => (int)($_POST['mileage'] ?? 0), // ВАЖНО: Полето за пробег
+            'mileage' => (int)($_POST['mileage'] ?? 0), 
             'price' => (float)($_POST['price'] ?? 0.00),
             'engine_type' => htmlspecialchars(trim($_POST['engine_type'] ?? '')),
             'transmission_type' => htmlspecialchars(trim($_POST['transmission_type'] ?? '')),
@@ -168,4 +168,5 @@ class AdminController
             'is_available' => isset($_POST['is_available']) ? 1 : 0,
         ];
     }
+
 }
