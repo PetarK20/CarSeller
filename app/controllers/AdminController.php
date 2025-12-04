@@ -32,7 +32,7 @@ class AdminController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $password = $_POST['password'] ?? '';
 
-            // ПАРОЛАТА Е ТУК: 'admin123'
+            // ПАРОЛАТА --> : 'admin123'
             if ($password === 'admin123') { 
                 $_SESSION['is_logged_in'] = true;
                 header('Location: index.php?url=admin');
@@ -170,3 +170,4 @@ class AdminController
     }
 
 }
+
