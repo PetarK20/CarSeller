@@ -151,7 +151,6 @@
 
             <div class="section-title full-width">Медия и Описание</div>
 
-            <!-- ПРОМЯНА: Textarea за множество снимки -->
             <div class="form-group full-width">
                 <label>Снимки (URL или път)</label>
                 <textarea name="image_url" rows="3"><?= htmlspecialchars($car['image_url']); ?></textarea>
@@ -192,4 +191,5 @@
 </div>
 
 </body>
+
 </html>
