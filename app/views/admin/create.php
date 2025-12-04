@@ -133,7 +133,6 @@
 
             <div class="section-title full-width">Медия и Описание</div>
 
-            <!-- ТУК Е ПРОМЯНАТА: Textarea за множество снимки -->
             <div class="form-group full-width">
                 <label>Снимки (URL или път)</label>
                 <textarea name="image_url" rows="3" placeholder="images/car1.png, images/car2.png"></textarea>
@@ -162,4 +161,5 @@
 </div>
 
 </body>
+
 </html>
