@@ -6,7 +6,6 @@
     <title>Нашият Автопарк</title>
     <!-- Връзка към CSS файла -->
     <link rel="stylesheet" href="css/style.css"> 
-    <!-- Добавяме Google Fonts за по-добър шрифт (Roboto) -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -28,7 +27,6 @@
             $isAvailable = $car['is_available'];
             $statusClass = $isAvailable ? '' : 'sold-out';
 
-            // --- НОВА ЛОГИКА ЗА СНИМКИТЕ ---
             // Разбиваме стринга по запетая, нов ред или интервал
             $images = preg_split('/[\s,]+/', $car['image_url'], -1, PREG_SPLIT_NO_EMPTY);
             // Взимаме първата, или слагаме placeholder ако няма нищо
@@ -109,4 +107,5 @@
     </footer>
 
 </body>
+
 </html>
