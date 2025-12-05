@@ -23,5 +23,5 @@
 ### 1. Клониране на хранилището
 
 ```bash
-git clone [https://github.com/PetarK20/CarSeller.git](https://github.com/PetarK20/CarSeller.git)
+git clone ![https://github.com/PetarK20/CarSeller.git](https://github.com/PetarK20/CarSeller.git)
 cd CarSeller
