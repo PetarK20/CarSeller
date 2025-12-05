@@ -16,12 +16,3 @@
     * CSS3
     * JavaScript (малко)
 
-## Инсталация и Настройка
-
-Следвайте стъпките по-долу, за да стартирате проекта локално.
-
-### 1. Клониране на хранилището
-
-```bash
-git clone ![https://github.com/PetarK20/CarSeller.git](https://github.com/PetarK20/CarSeller.git)
-cd CarSeller
