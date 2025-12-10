@@ -1,0 +1,691 @@
+/* ================================ */
+/* 0. Основни настройки (Reset) */
+/* ================================ */
+:root {
+  /* Дефиниране на цветови променливи за лесна промяна на темата */
+  --primary-color: #2563eb; /* Основен син цвят за акценти и бутони */
+  --primary-hover: #1d4ed8; /* По-тъмно синьо за ефект при посочване (hover) */
+  --bg-color: #f8fafc; /* Много светло сив фон на цялата страница */
+  --card-bg: #ffffff; /* Бял фон за картите на автомобилите */
+  --text-dark: #1e293b; /* Тъмен цвят (почти черен) за заглавия */
+  --text-light: #64748b; /* По-светъл сив цвят за детайли и описания */
+  --accent-red: #ef4444; /* Червен цвят за етикет "Продаден" */
+  --border-radius: 12px; /* Радиус на заобляне на ъглите */
+
+  /* Дефиниране на сенки за 3D ефект */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.main-header {
+  /* Контейнерът трябва да е 'relative' за абсолютно позициониране на снимките */
+  position: relative;
+  /* Фиксирана височина на хедъра */
+  height: 277px;
+  /* За да се вижда текстът, който е над снимките */
+  overflow: hidden;
+}
+
+/* Контейнер за снимките, който заема цялото пространство */
+.background-rotator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #333; /* Цвят при зареждане */
+}
+
+/* Всяка снимка вътре в ротатора */
+.background-rotator img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Гарантира, че снимката покрива контейнера без изкривяване */
+  opacity: 0; /* Всички снимки са скрити по подразбиране */
+  transition: opacity 1.5s ease-in-out; /* Плавен преход */
+}
+
+/* Текстът на хедъра трябва да е над снимките */
+.header-content {
+  position: relative; /* По-висок z-index от снимките */
+  z-index: 10;
+  /* Добавете стилове за центриране на текста */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* За да центрирате текста спрямо height: 400px */
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+body {
+  /* Задава модерен шрифт Roboto или Segoe UI */
+  font-family: "Roboto", "Segoe UI", sans-serif;
+  /* Премахва стандартните отстъпи на браузъра */
+  margin: 0;
+  /* Задава фона на страницата */
+  background-color: var(--bg-color);
+  /* Основен цвят на текста */
+  color: var(--text-dark);
+  /* Височина на реда за по-добра четимост */
+  line-height: 1.5;
+  /* Отстъп отдолу, за да не се залепя футърът за края на екрана */
+  padding-bottom: 60px;
+}
+
+/* ================================ */
+/* 1. Заглавна част (Header) */
+/* ================================ */
+.main-header {
+  /* Линеен градиент за фона на хедъра (от тъмно към по-светло синьо-сиво) */
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  /* Бял текст върху тъмния фон */
+  color: white;
+  /* Големи вътрешни отстъпи (горе/долу 60px) */
+  padding: 60px 20px;
+  /* Центриране на текста */
+  text-align: center;
+  /* Разстояние под хедъра */
+  margin-bottom: 40px;
+  /* Сянка под хедъра за отделяне от съдържанието */
+  box-shadow: var(--shadow-md);
+}
+
+.main-header h1 {
+  /* Премахва марджина */
+  margin: 0;
+  /* Голям размер на шрифта */
+  font-size: 2.8em;
+  /* Удебелен шрифт */
+  font-weight: 700;
+  /* Леко сбиване на буквите */
+  letter-spacing: -0.5px;
+}
+
+.main-header p {
+  /* Отстъп над подзаглавието */
+  margin-top: 10px;
+  /* Размер на подзаглавието */
+  font-size: 1.1em;
+  /* Светло сив цвят за подзаглавието */
+  color: #cbd5e1;
+  /* По-тънък шрифт */
+  font-weight: 300;
+}
+
+/* ================================ */
+/* 2. Контейнер (Grid Layout) */
+/* ================================ */
+.card-wrapper {
+  /* Flexbox за подреждане на картите */
+  display: flex;
+  /* Позволява преминаване на нов ред */
+  flex-wrap: wrap;
+  /* Центрира картите хоризонтално */
+  justify-content: center;
+  /* Разстояние между картите (30px) */
+  gap: 30px;
+  /* Максимална ширина на контейнера */
+  max-width: 1280px;
+  /* Центриране на самия контейнер в страницата */
+  margin: 0 auto;
+  /* Вътрешни отстъпи отстрани */
+  padding: 0 20px;
+}
+
+/* ================================ */
+/* 3. Карта (.card) */
+/* ================================ */
+.card {
+  /* Фиксирана ширина на картата */
+  width: 300px;
+  /* Бял фон */
+  background-color: var(--card-bg);
+  /* Заоблени ъгли */
+  border-radius: var(--border-radius);
+  /* Скрива съдържанието, което излиза извън заоблените ъгли */
+  overflow: hidden;
+  /* Лека сянка по подразбиране */
+  box-shadow: var(--shadow-sm);
+  /* Плавен преход за анимациите */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* Flexbox за вертикална подредба вътре в картата */
+  display: flex;
+  flex-direction: column;
+  /* Относителна позиция за етикетите */
+  position: relative;
+  /* Тънка рамка */
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.card:hover {
+  /* Повдига картата нагоре при посочване */
+  transform: translateY(-5px);
+  /* Усилва сянката при посочване */
+  box-shadow: var(--shadow-lg);
+}
+
+/* Ефект за продадени коли */
+.card.sold-out {
+  /* Черно-бял филтър */
+  filter: grayscale(100%);
+  /* Лека прозрачност */
+  opacity: 0.8;
+}
+.card.sold-out:hover {
+  /* Премахва ефекта на повдигане */
+  transform: none;
+  /* Връща нормалната сянка */
+  box-shadow: var(--shadow-sm);
+  /* Връща цветовете при посочване, за да се види колата */
+  filter: grayscale(0%);
+  /* Премахва прозрачността */
+  opacity: 1;
+}
+
+/* ================================ */
+/* 4. Снимка (.image-container) */
+/* ================================ */
+.image-container {
+  /* Фиксирана височина за контейнера на снимката */
+  height: 200px;
+  /* Относителна позиция за етикетите вътре */
+  position: relative;
+  /* Сив фон докато зареди снимката */
+  background-color: #eee;
+  /* Скрива излизащите части при zoom ефект */
+  overflow: hidden;
+}
+
+.card-image {
+  /* Ширина 100% от контейнера */
+  width: 100%;
+  /* Височина 100% от контейнера */
+  height: 100%;
+  /* Изрязва снимката, за да пасне без деформация */
+  object-fit: cover;
+  /* Плавен преход за zoom ефекта */
+  transition: transform 0.5s ease;
+}
+
+.card:hover .card-image {
+  /* Леко приближаване (zoom) на снимката при посочване на картата */
+  transform: scale(1.08);
+}
+
+.status-badge {
+  /* Абсолютно позициониране в горния десен ъгъл */
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  /* Червен фон */
+  background-color: var(--accent-red);
+  /* Бял текст */
+  color: white;
+  /* Малък шрифт */
+  font-size: 0.75em;
+  /* Удебелен текст */
+  font-weight: bold;
+  /* Отстъпи вътре в етикета */
+  padding: 5px 10px;
+  /* Заоблени ъгли */
+  border-radius: 4px;
+  /* Само главни букви */
+  text-transform: uppercase;
+  /* Сянка за четимост */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  /* Слой над снимката */
+  z-index: 2;
+}
+
+/* ================================ */
+/* 5. Съдържание (.card-content) */
+/* ================================ */
+.card-content {
+  /* Отстъп вътре в текстовата част */
+  padding: 20px;
+  /* Заема останалото място във височина */
+  flex-grow: 1;
+  /* Вертикална подредба */
+  display: flex;
+  flex-direction: column;
+}
+
+.car-info-top {
+  /* Разстояние под заглавието */
+  margin-bottom: 15px;
+}
+
+.card-content h3 {
+  /* Нулиране на марджините */
+  margin: 0 0 8px 0;
+  /* Размер на заглавието */
+  font-size: 1.3em;
+  /* Цвят на текста */
+  color: var(--text-dark);
+  /* Височина на реда */
+  line-height: 1.2;
+}
+
+.model-name {
+  /* Нормална дебелина на шрифта за модела */
+  font-weight: 400;
+}
+
+.meta-info {
+  /* Хоризонтална подредба на годината и трансмисията */
+  display: flex;
+  gap: 10px;
+  /* По-малък шрифт */
+  font-size: 0.85em;
+}
+
+.year-badge {
+  /* Светъл фон за годината */
+  background-color: #e2e8f0;
+  /* Цвят на текста */
+  color: var(--text-light);
+  /* Отстъпи */
+  padding: 2px 8px;
+  /* Заоблени ъгли */
+  border-radius: 4px;
+  /* Удебелен шрифт */
+  font-weight: 600;
+}
+
+.transmission {
+  /* Цвят на текста за трансмисията */
+  color: var(--text-light);
+}
+
+/* Спецификации (Grid за км и гориво) */
+.car-specs {
+  /* Flexbox за двете колонки */
+  display: flex;
+  /* Разпределя ги в двата края */
+  justify-content: space-between;
+  /* Разстояние отдолу */
+  margin-bottom: 20px;
+  /* Отстъп отдолу */
+  padding-bottom: 15px;
+  /* Разделителна линия */
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.spec-item {
+  /* Вертикална подредба (етикет над стойност) */
+  display: flex;
+  flex-direction: column;
+  /* Размер на шрифта */
+  font-size: 0.85em;
+}
+
+.spec-item .label {
+  /* Цвят на етикета (сиво) */
+  color: #94a3b8;
+  margin-bottom: 2px;
+}
+
+.spec-item .value {
+  /* Цвят на стойността (тъмно) */
+  color: var(--text-dark);
+  font-weight: 500;
+}
+
+.pagination-controls-wrapper {
+  /* Прави контейнера Flexbox */
+  display: flex;
+  /* Центрира всички дъщерни елементи (бутоните) по хоризонтала */
+  justify-content: center;
+  /* Добавяме външен отстъп над и под контролите */
+  margin: 30px auto;
+  /* Ограничаваме ширината за по-добро управление, но центрирането работи и без това */
+  max-width: 1200px;
+}
+
+.next-page-button,
+.prev-page-button {
+  display: inline-block;
+
+  /* Добавяме отстъп (margin) между бутоните, за да не се допират */
+  margin: 0 10px; /* 0 отгоре/отдолу, 10px отляво/отдясно */
+
+  /* Фон на бутона */
+  background-color: var(--primary-color, #007bff);
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 1em;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.next-page-button:hover,
+.prev-page-button:hover {
+  background-color: var(--primary-hover, #0056b3);
+}
+
+.button-wrapper-next-page,
+.button-wrapper-prev-page {
+  /* Без специфични flex стилове, само block */
+  display: block;
+}
+
+/* ================================ */
+/* 6. Футър на картата (Цена и Бутон) */
+/* ================================ */
+.car-footer {
+  /* Избутва футъра най-долу в картата */
+  margin-top: auto;
+  /* Хоризонтална подредба */
+  display: flex;
+  /* Разпределя цена и бутон в двата края */
+  justify-content: space-between;
+  /* Центрира ги вертикално */
+  align-items: center;
+}
+
+.price-container {
+  /* Вертикална подредба на етикет и цена */
+  display: flex;
+  flex-direction: column;
+}
+
+.price-label {
+  /* Малък етикет "ЦЕНА" */
+  font-size: 0.75em;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+.price {
+  /* Голям шрифт за цената */
+  font-size: 1.25em;
+  /* Удебелен */
+  font-weight: 700;
+  /* Основен син цвят */
+  color: var(--primary-color);
+}
+
+.btn-details {
+  /* Фон на бутона */
+  background-color: var(--primary-color);
+  /* Цвят на текста */
+  color: white;
+  /* Премахва подчертаването */
+  text-decoration: none;
+  /* Отстъпи вътре в бутона */
+  padding: 8px 18px;
+  /* Заоблени ъгли */
+  border-radius: 6px;
+  font-size: 0.9em;
+  font-weight: 500;
+  /* Плавен преход на цвета */
+  transition: background-color 0.2s;
+  padding: 10px 22px;
+  font-size: 1em;
+  font-weight: 600;
+}
+
+.btn-details:hover {
+  /* Тъмно синьо при посочване */
+  background-color: var(--primary-hover);
+}
+
+/* ================================ */
+/* 7. Други елементи */
+/* ================================ */
+.no-cars {
+  /* Центриране на съобщението за празен гараж */
+  width: 100%;
+  text-align: center;
+  padding: 50px;
+  color: var(--text-light);
+}
+
+.main-footer {
+  /* Центриране на футъра */
+  text-align: center;
+  /* Разстояние отгоре */
+  margin-top: 60px;
+  /* Цвят на текста */
+  color: #94a3b8;
+  font-size: 0.9em;
+}
+
+/* ================================ */
+/* 8. Страница с детайли (Car Detail) */
+/* ================================ */
+.detail-wrapper {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* Бутон за назад */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 25px;
+  text-decoration: none;
+  color: #64748b;
+  font-weight: 600;
+  background: white;
+  padding: 10px 20px;
+  border-radius: 50px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.back-link:hover {
+  color: var(--primary-color);
+  transform: translateX(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.back-link span {
+  margin-right: 8px;
+  font-size: 1.2em;
+}
+
+/* Основна карта с детайли */
+.detail-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
+    0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 900px) {
+  .detail-card {
+    flex-direction: row;
+    align-items: stretch;
+    min-height: 600px;
+  }
+  .detail-image-section {
+    width: 55%;
+  }
+  .detail-info-section {
+    width: 45%;
+    overflow-y: auto;
+  }
+}
+
+/* Секция със снимка */
+.detail-image-section {
+  position: relative;
+  background-color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.detail-main-image {
+  width: 100%;
+  height: 100%;
+  max-height: 650px;
+  object-fit: contain; /* Снимката се побира цялата */
+  display: block;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.15));
+}
+
+/* Етикет ПРОДАДЕН */
+.status-badge.sold-large {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  font-size: 1.4em;
+  padding: 12px 24px;
+  background-color: #ef4444;
+  color: white;
+  font-weight: 800;
+  border-radius: 8px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+  z-index: 10;
+  letter-spacing: 1px;
+  border: 2px solid white;
+  transform: rotate(5deg);
+}
+
+/* Секция информация */
+.detail-info-section {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+
+.detail-header {
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 25px;
+  margin-bottom: 25px;
+}
+
+.detail-header h1 {
+  margin: 0 0 10px 0;
+  color: #1e293b;
+  font-size: 2.2em;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+
+.detail-price {
+  font-size: 2em;
+  color: var(--primary-color);
+  font-weight: 800;
+  display: block;
+  margin-top: 10px;
+}
+
+/* Grid за характеристики */
+.specs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-bottom: 35px;
+}
+
+@media (max-width: 400px) {
+  .specs-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.spec-box {
+  background-color: #f8fafc;
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.spec-box:hover {
+  background-color: #fff;
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+}
+
+.sp-label {
+  font-size: 0.75em;
+  color: #94a3b8;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.sp-value {
+  font-weight: 700;
+  color: #334155;
+  font-size: 1.05em;
+}
+
+/* Описания */
+.description-block {
+  margin-bottom: 30px;
+  background: #fdfdfd;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #f1f5f9;
+}
+
+.description-block h2 {
+  font-size: 1.1em;
+  color: #0f172a;
+  margin-top: 0;
+  margin-bottom: 12px;
+  border-left: 4px solid var(--primary-color);
+  padding-left: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.description-block p {
+  color: #475569;
+  line-height: 1.7;
+  margin: 0;
+  font-size: 0.95em;
+}
+
+/* Грешки и бутони */
+.error-container {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.btn-home {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  margin-top: 15px;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.btn-home:hover {
+  background-color: var(--primary-hover);
+}
