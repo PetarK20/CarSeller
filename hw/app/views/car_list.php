@@ -10,18 +10,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         .header-content {
-            /* ... (запазваме съществуващите стилове: position, z-index, display, flex-direction и т.н.) ... */
-
-            /* НОВО: Преход за плавна анимация на текста */
+           
             transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
                 transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-
-            /* НОВО: Начално състояние - скрит и леко отместен надолу */
             opacity: 0;
             transform: translateY(20px);
         }
-
-        /* НОВ КЛАС: За да покажем и анимираме текста */
         .header-content.animate-in {
             opacity: 1;
             transform: translateY(0);
@@ -223,5 +217,6 @@
             setInterval(fetchNextImage, intervalTime);
         });
 </script>
+
 
 </html>
